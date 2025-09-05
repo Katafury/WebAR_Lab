@@ -1,44 +1,53 @@
 <!DOCTYPE html>
 <html lang="fr">
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>AR.js interactif avec Hiro</title>
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js@3.4.4/aframe/build/aframe-ar-nft.js"></script>
   </head>
-  
-  <body style="margin: 0; overflow: hidden;">
+
+  <body style="margin: 0; overflow: hidden">
     <a-scene embedded arjs>
       <a-entity camera>
         <a-cursor fuse="false" raycaster="objects: .clickable"></a-cursor>
       </a-entity>
       <a-marker preset="hiro">
-        <a-box 
+        <a-box
           class="clickable"
-          position="0 0.5 0" 
-          color="red" 
+          position="0 0.5 0"
+          color="red"
           opacity="0.5"
           rotation="0 0 0"
-          animation="property: rotation; to: 0 360 0; loop: true; dur: 4000; easing: linear">
+          animation="property: rotation; to: 0 360 0; loop: true; dur: 4000; easing: linear"
+        >
         </a-box>
       </a-marker>
     </a-scene>
-    
+
     <script>
-      const box = document.querySelector('a-box');
-      const colors = ['red','blue','green','yellow','purple'];
+      const box = document.querySelector("a-box");
+      const colors = ["red", "blue", "green", "yellow", "purple"];
       let index = 0;
       let animating = false;
-      
-      box.addEventListener('click', () => {
-        if(animating) return;
+
+      box.addEventListener("click", () => {
+        if (animating) return;
         animating = true;
         index = (index + 1) % colors.length;
-        box.setAttribute('color', colors[index]);
-        
-        if(box.getAttribute('animation__scale')) box.removeAttribute('animation__scale');
-        box.setAttribute('animation__scale', "property: scale; to: 1.5 1.5 1.5; dur: 500; dir: alternate; loop: 1;");
-        setTimeout(()=>{animating=false;},500);
+        box.setAttribute("color", colors[index]);
+
+        if (box.getAttribute("animation__scale"))
+          box.removeAttribute("animation__scale");
+
+        box.setAttribute(
+          "animation__scale",
+          "property: scale; to: 1.5 1.5 1.5; dur: 500; dir: alternate; loop: 1;"
+        );
+
+        setTimeout(() => {
+          animating = false;
+        }, 500);
       });
     </script>
   </body>
