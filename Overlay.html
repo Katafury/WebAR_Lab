@@ -13,7 +13,9 @@
       background: rgba(255,255,255,0.8);
       padding: 10px;
       border-radius: 8px;
-      display: none; /* caché par défaut */
+      display: none;
+      pointer-events: auto;
+      z-index: 10;
     }
     #ui input[type="range"] {
       width: 150px;
@@ -38,7 +40,7 @@
     <button class="color-btn" style="background:blue;"></button>
   </div>
 
-  <a-scene embedded arjs>
+  <a-scene embedded arjs="sourceType: webcam" style="pointer-events: none;">
     <a-entity camera>
       <a-cursor fuse="false" raycaster="objects: .clickable"></a-cursor>
     </a-entity>
@@ -73,19 +75,21 @@
       ui.style.display = "none";
     });
 
-    sizeSlider.addEventListener("input", (e) => {
+    function updateSize(e){
       const val = parseFloat(e.target.value);
       sizeValue.textContent = val.toFixed(1);
       box.setAttribute("scale", `${val} ${val} ${val}`);
-    });
+    }
+
+    sizeSlider.addEventListener("input", updateSize);
+    sizeSlider.addEventListener("change", updateSize);
+    sizeSlider.addEventListener("touchmove", updateSize);
 
     colorButtons.forEach(btn => {
       btn.addEventListener("click", (e) => {
         const color = e.target.style.background;
         box.setAttribute("color", color);
       });
-    });
-  </script>
-
-</body>
-</html>
+      btn.addEventListener("touchstart", (e) => {
+        const color = e.target.style.background;
+        box.setAt
