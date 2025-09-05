@@ -18,7 +18,7 @@
 
       <a-marker preset="hiro">
         <a-box 
-          class="clickable"        <!-- rend la boîte cliquable -->
+          class="clickable"
           position="0 0.5 0" 
           color="red" 
           opacity="0.5"
@@ -36,13 +36,6 @@
       box.addEventListener('click', () => {
         index = (index + 1) % colors.length;
         box.setAttribute('color', colors[index]);
-        box.setAttribute('animation', `
-          property: rotation; 
-          to: 0 720 0; 
-          loop: false; 
-          dur: 1000; 
-          easing: linear
-        `);
 
         box.setAttribute('animation__scale', `
           property: scale;
